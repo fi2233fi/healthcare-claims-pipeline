@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: healthcare
+    database: dev
+    schema: healthcare
+    tables:
+      - name: insurance_raw

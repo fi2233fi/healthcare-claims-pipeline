@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: stg_insurance
+    description: "Staging model for cleaned insurance claim data"
+    columns:
+      - name: age
+        tests:
+          - not_null
+      - name: gender
+        tests:
+          - accepted_values:
+              values: ['male', 'female']
+      - name: charges
+        tests:
+          - not_null
+
+  - name: dim_patient_spending
+    description: "Transformed model categorizing patients by spending"
+    columns:
+      - name: spending_bracket
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Low', 'Medium', 'High']
+exposures:
+  - name: patient_spending_dashboard
+    label: "Patient Spending Dashboard"
+    type: dashboard
+    maturity: medium
+    url: https://your-dashboard-link.com
+    description: "Dashboard showing patient spend trends by gender, region, and smoking status"
+    depends_on:
+      - ref('dim_patient_spending')
+
